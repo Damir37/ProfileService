@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  profileservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: profileservice:latest
+    container_name: ProfileService
+    network_mode: "host"
+    environment:
+      - TZ=Asia/Shanghai
+      - APP_NAME=profile_service
+      - APP_LISTENER=0.0.0.0:8080
+      - CONSUL_SERVICE_ADDRESS=localhost
+      - CONSUL_SERVICE_PORT=8080
+      - CONSUL_ADDRESS=192.168.0.126
+      - CONSUL_PORT=8500
+      - CONSUL_NAME=cluster-2-node1-backend
+      - CONSUL_ID=exampleservice
+      - PROM_PORT=9090
+      - REDIS_MASTER_ADDRESS=127.127.126.48:6379
+      - REDIS_SLAVE_ADDRESS=127.127.126.48:6379
+      - POSTGRES_MASTER=postgres://postgres:12345@localhost:5432/timertracker_db?sslmode=disable
+      - POSTGRES_REPLICAS=postgres://postgres:12345@localhost:5432/timertracker_db?sslmode=disable
+    restart: unless-stopped
